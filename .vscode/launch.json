@@ -1,0 +1,53 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "NodeJS Debug",
+			"port": 9229,
+			"request": "attach",
+			"skipFiles": ["<node_internals>/**"],
+			"type": "node",
+			"sourceMaps": true,
+			"presentation": {
+				"hidden": true,
+				"group": "1",
+				"order": 1
+			}
+		},
+		{
+			"name": "Launch Vivaldi",
+			"request": "launch",
+			"type": "chrome",
+			"url": "http://localhost:3000",
+			"webRoot": "${workspaceFolder}",
+			"runtimeExecutable": "C:\\Users\\tommi\\AppData\\Local\\Vivaldi\\Application\\vivaldi.exe",
+			"runtimeArgs": ["--remote-debugging-port=9222", "--user-data-dir=c:\\code\\bat\\temp-usr"],
+			"presentation": {
+				"hidden": false,
+				"group": "1"
+			},
+			"sourceMaps": true,
+			"userDataDir": false
+		},
+		{
+			"type": "vscode-edge-devtools.debug",
+			"name": "Open Edge DevTools",
+			"request": "attach",
+			"url": "http://localhost:3000", // Provide your project's url to finish configuring
+			"presentation": {
+				"hidden": true,
+				"group": "1"
+			}
+		}
+	],
+	"compounds": [
+		{
+			"preLaunchTask": "StartDev",
+			"name": "Debug",
+			"configurations": ["Launch Vivaldi", "Open Edge DevTools", "NodeJS Debug"]
+		}
+	]
+}

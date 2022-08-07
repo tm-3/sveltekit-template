@@ -1,0 +1,115 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Open VitestUI",
+			"detail": "Launches a simple browser window to the vite test UI.",
+			"command": "${input:viteUI}",
+			"problemMatcher": []
+		},
+		{
+			"label": "Open OW-A",
+			"detail": "Launches a simple browser window to the dev server.",
+			"command": "${input:sveltekit}",
+			"problemMatcher": []
+		},
+		{
+			"label": "Start VitestUI",
+			"type": "npm",
+			"group": "test",
+			"isBackground": true,
+			"script": "test:unit:ui",
+			"problemMatcher": [],
+			"detail": "vitest --ui",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": false,
+				"group": "1",
+				"close": false
+			}
+		},
+		{
+			"label": "StartDev",
+			"detail": "Starts a dev server",
+			"type": "npm",
+			"presentation": {
+				"echo": true,
+				"group": "tminus3",
+				"panel": "shared",
+				"reveal": "always"
+			},
+			"group": {
+				"kind": "build"
+			},
+			"isBackground": true,
+			"script": "dev"
+		},
+		{
+			"label": "StartTerminal",
+			"detail": "Opens an empty terminal with the build terminal",
+			"command": "${input:openTerminal}",
+			"presentation": {
+				"echo": true,
+				"group": "tminus3",
+				"panel": "shared",
+				"reveal": "always"
+			},
+			"group": {
+				"kind": "build"
+			}
+		},
+		{
+			"label": "Build",
+			"dependsOn": ["StartTerminal", "StartDev"],
+			"dependsOrder": "parallel",
+			"presentation": {
+				"echo": true,
+				"group": "tminus3",
+				"panel": "dedicated",
+				"reveal": "always"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "Test",
+			"dependsOn": ["StartDev", "TestUI", "SimpleTestUI", "StartTerminal"],
+			"dependsOrder": "parallel",
+			"problemMatcher": [],
+			"detail": "Starts a dev server, starts vitest in watch mode, opens the vitest UI in the simple browser.",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		}
+	],
+	"inputs": [
+		{
+			// Opens simple browser to the url specified in args. Called from a task
+			"id": "viteUI",
+			"type": "command",
+			"command": "simpleBrowser.show",
+			"args": ["http://localhost:51204/__vitest__/"]
+		},
+		{
+			// Opens simple browser to the url specified in args. Called from a task
+			"id": "sveltekit",
+			"type": "command",
+			"command": "simpleBrowser.show",
+			"args": ["http://localhost:3000"]
+		},
+		{
+			"id": "openTerminal",
+			"type": "command",
+			"command": "workbench.action.terminal.newInActiveWorkspace"
+		}
+	]
+}
